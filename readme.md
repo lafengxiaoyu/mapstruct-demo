@@ -1,15 +1,19 @@
 ```text
-[Order]                                [OrderDTO]
-├─ id: Long                            ├─ orderId: String 
-├─ customer.name: String               ├─ customerName: String
-├─ items: List<OrderItem>              ├─ items: List<OrderItemDTO>
-│  ├─ product.sku: String              │  ├─ sku: String
-│  ├─ quantity: int                    │  ├─ quantity: int
-│  └─ price: double                    │  ├─ unitPrice: double
-│                                      │  └─ subtotal: double
-├─ deliveryAddress.street: String      ├─ deliveryStreet: String
-├─ deliveryAddress.city: String        ├─ deliveryCity: String
-├─ deliveryAddress.postalCode: String  ├─ deliveryZipCode: String
-└─ creationDate: Date                  ├─ orderDate: Date
-                                       └─ total: double
+[Order]                              [OrderDTO]
+├─ id: Long                          ├─ orderId: String (transformed)
+├─ customer: Customer                │
+│  └─ name: String                   ├─ customerName: String (customer.name)
+├─ items: List<OrderItem>            ├─ items: List<OrderItemDTO>
+│  ├─ product: Product               │  │
+│  │  ├─ sku: String                 │  ├─ sku: String (product.sku)
+│  │  └─ name: String                │  │
+│  ├─ quantity: int           ==>>   │  ├─ quantity: int (copied)
+│  └─ price: double                  │  ├─ unitPrice: double (price renamed)
+│                                    │  └─ subtotal: double (calculated)
+├─ deliveryAddress: Address          │
+│  ├─ street: String                 ├─ deliveryStreet: String (address.street)
+│  ├─ city: String                   ├─ deliveryCity: String (address.city)
+│  └─ postalCode: String             ├─ deliveryZipCode: String (address.postalCode)
+└─ creationDate: Date                ├─ orderDate: Date (renamed)
+                                     └─ total: double (calculated from items)
 ```
