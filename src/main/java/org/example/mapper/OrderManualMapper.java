@@ -4,9 +4,12 @@ import org.example.dto.OrderDTO;
 import org.example.dto.OrderItemDTO;
 import org.example.model.Order;
 import org.example.model.OrderItem;
+import org.example.model.Product;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.util.Optional.ofNullable;
 
 public class OrderManualMapper {
 
@@ -33,7 +36,8 @@ public class OrderManualMapper {
         double total = 0.0;
         for (OrderItem item : order.getItems()) {
             OrderItemDTO itemDTO = new OrderItemDTO();
-            itemDTO.setSku(item.getProduct().getSku());
+            itemDTO.setSku(
+                ofNullable(item).map(OrderItem::getProduct).map(Product::getSku).orElse(null));
             // ❌ Typo in method name!
             itemDTO.setQuantity(item.getQuantity());
             itemDTO.setUnitPrice(item.getPrice());

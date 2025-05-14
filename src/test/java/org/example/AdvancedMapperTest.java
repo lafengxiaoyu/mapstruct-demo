@@ -1,37 +1,37 @@
 package org.example;
 
 import org.example.dto.OrderDTO;
-import org.example.mapper.OrderManualMapper;
-import org.example.mapper.OrderMapStructMapper;
-import org.example.mapper.OrderMapStructMapperImpl;
-import org.example.model.*;
+import org.example.mapper.AdvancedOrderMapStructMapper;
+import org.example.mapper.AdvancedOrderMapStructMapperImpl;
+import org.example.model.Address;
+import org.example.model.Customer;
+import org.example.model.Order;
+import org.example.model.OrderItem;
+import org.example.model.Product;
 import org.junit.jupiter.api.Test;
 
 import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-class MapperTest {
+class AdvancedMapperTest {
 
-    private final OrderMapStructMapper mapStructMapper = new OrderMapStructMapperImpl();
-    private final OrderManualMapper manualMapper = new OrderManualMapper();
+    private final AdvancedOrderMapStructMapper mapStructMapper = new AdvancedOrderMapStructMapperImpl();
 
     @Test
     public void testMappers() {
         Order order = createTestOrder();
 
-        // Manual mapping
-        OrderDTO manualDto = manualMapper.toDto(order);
-
         // MapStruct mapping
         OrderDTO mapstructDto = mapStructMapper.orderToDto(order);
 
-        System.out.println("Manual DTO:\n \t" + manualDto + "\n" + "MapStruct DTO:\n \t" + mapstructDto);
-
-        // Verify both produce same results
-        assertEquals(manualDto.getTotal(), mapstructDto.getTotal());
+        System.out.println("Advanced MapStruct DTO:\n \t" + mapstructDto);
+        assertEquals("1181TS", mapstructDto.getDeliveryZipCode());
+        assertEquals(120.98, mapstructDto.getTotal());
+        assertEquals("1001", mapstructDto.getItems().get(0).getSku());
+        assertEquals("9999", mapstructDto.getItems().get(1).getSku());
+        assertEquals("123-Main-St", mapstructDto.getDeliveryStreet());
     }
 
     private Order createTestOrder() {
