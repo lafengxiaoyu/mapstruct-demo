@@ -4,14 +4,17 @@ import org.example.dto.OrderDTO;
 import org.example.mapper.OrderManualMapper;
 import org.example.mapper.OrderMapStructMapper;
 import org.example.mapper.OrderMapStructMapperImpl;
-import org.example.model.*;
+import org.example.model.Address;
+import org.example.model.Customer;
+import org.example.model.Order;
+import org.example.model.OrderItem;
+import org.example.model.Product;
 import org.junit.jupiter.api.Test;
 
 import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class MapperTest {
 
